@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - NutriFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde-vitalidad: #4CAF50;
+            --verde-tranquilo: #81C784;
+            --verde-profundo: #2E7D32;
+            --blanco-pureza: #FAFAFA;
+            --gris-natural: #B0BEC5;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--blanco-pureza);
+            color: var(--verde-profundo);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--verde-vitalidad);
+            color: white;
+            padding: 1.5rem 0;
+        }
+
+        .container-flex {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo img {
+            height: 60px;
+            vertical-align: middle;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.85;
+        }
+
+        .cta-button {
+            background-color: var(--verde-profundo);
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #27692b;
+        }
+
+        .perfil-container {
+            width: 90%;
+            max-width: 900px;
+            margin: 2rem auto;
+            background-color: var(--blanco-pureza);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        h1 {
+            color: var(--verde-profundo);
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .perfil-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .perfil-info li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 1.1rem;
+        }
+
+        .perfil-info li:last-child {
+            border-bottom: none;
+        }
+
+        .progreso {
+            margin-top: 30px;
+        }
+         
+        footer {
+            background-color: var(--verde-vitalidad);
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            text-align: center;
+            margin: 0;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+
+        .barra {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .relleno {
+            height: 100%;
+            line-height: 20px;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+        }
+        
+        
+        .calorias { background-color: #4caf50; }
+        .proteinas { background-color: #2196f3; }
+        .carbohidratos { background-color: #ff9800; }
+        .grasas { background-color: #9c27b0; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container-flex">
+        <div class="logo">
+            <img src="/media/images/nutriflowlogo.png" alt="NutriFlow Logo">
+            <span style="margin-left: 12px;">NutriFlow</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/preferences">Preferences</a></li>
+                <li><a href="{% url 'generate_diet' %}">Generar Dieta</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logoutaccount' %}" class="cta-button">Logout ({{ user.username }})</a></li>
+                {% else %}
+                    <li><a href="{% url 'loginaccount' %}">Login</a></li>
+                    <li><a href="{% url 'signupaccount' %}" class="cta-button">Get Started</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="perfil-container">
+    <h1>Mi Perfil Nutricional</h1>
+
+    {% if preferences %}
+    <div class="perfil-info">
+        <ul>
+            <li><strong>Género:</strong> {{ preferences.get_genero_display }}</li>
+            <li><strong>Edad:</strong> {{ preferences.edad }}</li>
+            <li><strong>Peso:</strong> {{ preferences.peso }} kg</li>
+            <li><strong>Altura:</strong> {{ preferences.altura }} cm</li>
+            <li><strong>Objetivo:</strong> {{ preferences.get_objetivo_display }}</li>
+            <li><strong>Nivel de actividad:</strong> {{ preferences.get_nivel_actividad_display }}</li>
+            <li><strong>Presupuesto:</strong> ${{ preferences.presupuesto }}</li>
+            <li><strong>Alergias:</strong> {{ preferences.alergias|default:"Ninguna" }}</li>
+            <li><strong>Calorías objetivo:</strong> {{ preferences.calorias }} kcal</li>
+            <li><strong>Proteínas:</strong> {{ preferences.proteinas }} g</li>
+            <li><strong>Carbohidratos:</strong> {{ preferences.carbohidratos }} g</li>
+            <li><strong>Grasas:</strong> {{ preferences.grasas }} g</li>
+        </ul>
+    </div>
+    {% else %}
+    <p>Aún no has configurado tus preferencias nutricionales. Puedes hacerlo desde tu panel de usuario.</p>
+    {% endif %}
+
+    <div class="progreso">
+        <form method="POST">
+    {% csrf_token %}
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="calorias">Calorías consumidas:</label><br>
+        <input type="number" name="calorias" id="calorias" value="{{ calorias_consumidas }}" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+        <div class="barra"><div class="relleno calorias" style="width: {{ porcentaje_calorias }}%;">{{ porcentaje_calorias }}%</div></div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="proteinas">Proteínas (g):</label><br>
+        <input type="number" name="proteinas" id="proteinas" value="{{ proteinas_consumidas }}" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+        <div class="barra"><div class="relleno proteinas" style="width: {{ porcentaje_proteinas }}%;">{{ porcentaje_proteinas }}%</div></div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="carbohidratos">Carbohidratos (g):</label><br>
+        <input type="number" name="carbohidratos" id="carbohidratos" value="{{ carbohidratos_consumidos }}" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+        <div class="barra"><div class="relleno carbohidratos" style="width: {{ porcentaje_carbohidratos }}%;">{{ porcentaje_carbohidratos }}%</div></div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="grasas">Grasas (g):</label><br>
+        <input type="number" name="grasas" id="grasas" value="{{ grasas_consumidas }}" required style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+        <div class="barra"><div class="relleno grasas" style="width: {{ porcentaje_grasas }}%;">{{ porcentaje_grasas }}%</div></div>
+    </div>
+
+    <button type="submit" class="cta-button" style="
+        background: linear-gradient(135deg, var(--verde-profundo), var(--verde-vitalidad));
+        border: none;
+        color: white;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto;
+    "> Guardar Progreso</button>
+</form>
+
+
+    </div>
+</div>
+<footer>
+    <div class="footer">
+      <p>&copy; 2025 NutriFlow. Todos los derechos reservados.</p>
+    </div>
+</footer>
+</body>
+</html>

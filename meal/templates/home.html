@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NutriFlow - Planificación Saludable</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde-vitalidad: #4CAF50;
+      --verde-tranquilo: #81C784;
+      --verde-profundo: #2E7D32;
+      --blanco-pureza: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--blanco-pureza);
+      color: var(--verde-profundo);
+      margin: 0;
+      padding: 0;
+      padding-top: 80px; /* Ajustamos el padding superior para evitar que el contenido quede cubierto */
+    }
+
+    header {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      padding: 1rem 0;
+      position: fixed; /* Fijamos el navbar */
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10; /* Aseguramos que el navbar esté por encima del contenido */
+    }
+
+    footer {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      padding: 1.5rem 0;
+    }
+
+    .container-flex {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem; /* Reducción del tamaño del logo */
+      font-weight: 700;
+      color: white;
+    }
+
+    .logo img {
+      height: 50px; /* Ajuste de tamaño */
+      vertical-align: middle;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem; /* Reducción del espacio entre elementos */
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem; /* Ajuste de tamaño del texto */
+      transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+      opacity: 0.85;
+    }
+
+    .cta-button {
+      background-color: var(--verde-profundo);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem; /* Ajuste de tamaño */
+      transition: background-color 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #27692b;
+    }
+
+    .hero {
+      position: relative;
+      height: 70vh; /* Ajuste de la altura */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem; /* Reducción del tamaño */
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--verde-profundo);
+    }
+
+    .hero p {
+      font-size: 1.2rem; /* Ajuste de tamaño */
+      margin-bottom: 1.5rem;
+      color: var(--verde-profundo);
+    }
+
+    .button-scroll {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background-color: var(--verde-vitalidad);
+      color: white;
+      font-size: 1rem; /* Ajuste de tamaño */
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .button-scroll:hover {
+      background-color: #388E3C;
+      transform: translateY(-5px);
+    }
+
+    footer p {
+      text-align: center;
+      margin: 0;
+      font-size: 1rem; /* Ajuste de tamaño */
+      padding-top: 0.5rem;
+      color: white;
+    }
+
+    .section, .card, .hero-content, .footer {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    footer p {
+      text-align: center;
+      margin: 0;
+      font-size: 1rem;
+      padding-top: 0.5rem;
+    }
+
+    .section:nth-of-type(1) { animation-delay: 0.2s; }
+    .section:nth-of-type(2) { animation-delay: 0.4s; }
+    .section:nth-of-type(3) { animation-delay: 0.6s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container-flex">
+      <div class="logo">
+        <img src="/media/images/nutriflowlogo.png" alt="Logo NutriFlow" />
+        <span style="margin-left: 12px;">NutriFlow</span>
+      </div>
+      <nav>
+        <ul>
+          {% if user.is_authenticated %}
+            <li><a href="/supermarket">Supermercado</a></li>
+            <li><a href="/preferences">Preferencias</a></li>
+            <li><a href="perfil/">Perfil</a></li>
+            <li><a href="{% url 'generate_diet' %}">Generar Dieta</a></li>
+            <li><a href="{% url 'logoutaccount' %}" class="cta-button">Cerrar sesión ({{ user.username }})</a></li>
+          {% else %}
+            <li><a href="{% url 'loginaccount' %}">Iniciar sesión</a></li>
+            <li><a href="{% url 'signupaccount' %}" class="cta-button">Comenzar</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Nutrición personalizada, sin complicaciones</h1>
+      <p>Recibe planes alimenticios adaptados a tus metas, presupuesto y necesidades dietéticas.</p>
+      <a href="#why-nutriflow" class="button-scroll">Descubre por qué NutriFlow</a>
+    </div>
+  </section>
+
+  <section id="why-nutriflow" class="section" style="padding: 4rem 2rem; text-align: center;">
+    <h2 style="font-size: 2rem; color: var(--verde-profundo); margin-bottom: 2rem;">¿Por qué usar NutriFlow?</h2>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; max-width: 1000px; margin: 0 auto;">
+      <div class="card" style="background-color: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 250px;">
+        <h3 style="color: var(--verde-profundo);">Ahorra en el supermercado</h3>
+        <p>Compara productos en tiempo real y compra donde más te conviene.</p>
+      </div>
+      <div class="card" style="background-color: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 250px;">
+        <h3 style="color: var(--verde-profundo);">Planifica según tus macros</h3>
+        <p>Recibe menús personalizados para tus necesidades nutricionales.</p>
+      </div>
+      <div class="card" style="background-color: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 250px;">
+        <h3 style="color: var(--verde-profundo);">Fácil de usar</h3>
+        <p>Una interfaz limpia y rápida que te guía paso a paso.</p>
+      </div>
+    </div>
+    <a href="#how-it-works" class="button-scroll">Ver cómo funciona</a>
+  </section>
+
+  <section id="how-it-works" style="padding: 4rem 2rem; background-color: var(--blanco-pureza); text-align: center;">
+    <h2 style="font-size: 2rem; color: var(--verde-profundo); margin-bottom: 2rem;">¿Cómo funciona NutriFlow?</h2>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; max-width: 1000px; margin: 0 auto;">
+      <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 250px;">
+        <h3 style="color: var(--verde-vitalidad);">1. Cuéntanos sobre ti</h3>
+        <p>Indica tus metas, presupuesto, alergias y preferencias alimenticias.</p>
+      </div>
+      <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 250px;">
+        <h3 style="color: var(--verde-vitalidad);">2. Recibe tu plan</h3>
+        <p>Te enviaremos un plan de comidas adaptado a tus necesidades.</p>
+      </div>
+      <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 250px;">
+        <h3 style="color: var(--verde-vitalidad);">3. Compra inteligente</h3>
+        <p>Compara precios en supermercados y compra los productos más baratos.</p>
+      </div>
+    </div>
+    <a href="preferences/" class="button-scroll">Comienza ahora</a>
+  </section>
+
+  <footer id="footer">
+    <div class="footer">
+      <p>&copy; 2025 NutriFlow. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

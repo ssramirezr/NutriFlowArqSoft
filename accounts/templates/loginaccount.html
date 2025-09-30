@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicia Sesión - NutriFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde-vitalidad: #4CAF50;
+      --verde-oscuro: #2E7D32;
+      --blanco: #ffffff;
+      --gris-fondo: #f3f4f6;
+      --gris-borde: #ccc;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--gris-fondo);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 80px; /* espacio para navbar */
+    }
+
+    header {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .container-flex {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .logo img {
+      height: 50px;
+      vertical-align: middle;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+      opacity: 0.85;
+    }
+
+    .cta-button {
+      background-color: var(--verde-oscuro);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #27692b;
+    }
+
+    .login-wrapper {
+      background-color: var(--blanco);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      display: flex;
+      max-width: 960px;
+      width: 95%;
+      overflow: hidden;
+    }
+
+    .login-visual {
+      background: linear-gradient(to bottom right, var(--verde-vitalidad), var(--verde-oscuro));
+      color: white;
+      padding: 3rem 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .login-visual img {
+      width: 120px;
+      margin-bottom: 1rem;
+    }
+
+    .login-visual h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .login-visual ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .login-visual li {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .login-visual li::before {
+      content: "✅";
+      margin-right: 0.5rem;
+    }
+
+    .login-form {
+      flex: 1;
+      padding: 3rem 2.5rem;
+    }
+
+    .login-form h2 {
+      color: var(--verde-oscuro);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .login-form form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-form form p {
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .login-form input {
+      padding: 0.8rem;
+      border: 1px solid var(--gris-borde);
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    .login-form button {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .login-form button:hover {
+      background-color: var(--verde-oscuro);
+    }
+
+    .signup-link {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .signup-link a {
+      color: var(--verde-oscuro);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    .alert {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .login-wrapper {
+        flex-direction: column;
+      }
+
+      .login-visual {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container-flex">
+    <div class="logo">
+      <img src="/media/images/nutriflowlogo.png" alt="Logo NutriFlow" />
+      <span style="margin-left: 12px;">NutriFlow</span>
+    </div>
+    <nav>
+      <ul>
+        {% if user.is_authenticated %}
+          <li><a href="/supermarket">Supermercado</a></li>
+          <li><a href="/preferences">Preferencias</a></li>
+          <li><a href="/perfil/">Perfil</a></li>
+          <li><a href="{% url 'generate_diet' %}">Generar Dieta</a></li>
+          <li><a href="{% url 'logoutaccount' %}" class="cta-button">Cerrar sesión ({{ user.username }})</a></li>
+        {% else %}
+          <li><a href="{% url 'loginaccount' %}">Iniciar sesión</a></li>
+          <li><a href="{% url 'signupaccount' %}" class="cta-button">Comenzar</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="login-wrapper">
+  <div class="login-visual">
+    <img src="/media/images/nutriflowlogo.png" alt="NutriFlow Logo" />
+    <h3>¡Bienvenido de vuelta!</h3>
+    <ul>
+      <li>Tu salud, tu estilo de vida</li>
+      <li>Dietas personalizadas y económicas</li>
+      <li>Control total sobre tus nutrientes</li>
+    </ul>
+  </div>
+
+  <div class="login-form">
+    <h2>Inicia sesión en NutriFlow</h2>
+
+    {% if error %}
+      <div class="alert">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Iniciar sesión</button>
+    </form>
+
+    <div class="signup-link">
+      ¿No tienes cuenta? <a href="{% url 'signupaccount' %}">Regístrate aquí</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

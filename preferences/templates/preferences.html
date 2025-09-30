@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NutriFlow - Preferencias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <style>
+    :root {
+      --verde-vitalidad: #4CAF50;
+      --verde-claro: #A7F3D0;
+      --verde-oscuro: #2E7D32;
+      --gris: #ccc;
+      --gris-fondo: #f3f4f6;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--gris-fondo);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .container-flex {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .logo img {
+      height: 50px;
+      vertical-align: middle;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+      opacity: 0.85;
+    }
+
+    .cta-button {
+      background-color: var(--verde-oscuro);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #27692b;
+    }
+
+    .container {
+      display: flex;
+      max-width: 1300px;  /* Aumentado desde 1100px */
+      margin: 6rem auto 3rem auto;
+      gap: 4rem;           /* Más separación entre form y resumen */
+      padding: 0 2rem;
+      flex: 1;
+      align-items: flex-start;
+    }
+
+
+    .formulario {
+      background: #fff;
+      padding: 3rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      flex: 2.5;                       /* Le damos más espacio relativo */
+      font-size: 1.1rem;
+      width: 750px;
+    }
+
+
+    .resumen {
+      background: var(--verde-claro);
+      padding: 2rem;
+      border-radius: 16px;
+      flex: 1.2;                      /* Sigue visible, pero no compite con el formulario */
+      position: sticky;
+      top: 7rem;
+      height: fit-content;
+      font-size: 1rem;
+      width: 350px;;
+    }
+
+
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+      color: var(--verde-oscuro);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--gris);
+      border-radius: 8px;
+    }
+
+    .options {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .option-btn {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid var(--gris);
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: white;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .option-btn.selected {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      border-color: var(--verde-oscuro);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+
+    .buttons button {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .resumen h3 {
+      margin-top: 0;
+      color: var(--verde-oscuro);
+    }
+
+    .resumen p {
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: auto;
+    }
+
+    .guardar-btn {
+      background-color: var(--verde-oscuro);
+      color: white;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 1rem;
+      width: 60%;
+      display: block;
+    }
+
+    .guardar-btn:hover {
+      background-color: #27692b;
+      transform: translateY(-2px);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="container-flex">
+      <div class="logo">
+        <img src="/media/images/nutriflowlogo.png" alt="Logo NutriFlow" />
+        <span style="margin-left: 12px;">NutriFlow</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/supermarket">Supermercado</a></li>
+          <li><a href="perfil/">Perfil</a></li>
+          <li><a href="{% url 'generate_diet' %}">Generar Dieta</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'logoutaccount' %}" class="cta-button">Cerrar sesión ({{ user.username }})</a></li>
+          {% else %}
+            <li><a href="{% url 'loginaccount' %}">Iniciar sesión</a></li>
+            <li><a href="{% url 'signupaccount' %}" class="cta-button">Comenzar</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <form id="preferencesForm" class="formulario">
+      <div class="step active" data-step="1">
+        <h2>1. Información Personal</h2>
+
+        <label>Género:</label>
+        <div class="options" id="genero">
+          <div class="option-btn" data-value="male">Hombre</div>
+          <div class="option-btn" data-value="female">Mujer</div>
+        </div>
+
+        <label>Edad:</label>
+        <input type="number" name="edad" required>
+
+        <label>Peso (kg):</label>
+        <input type="number" name="peso" required>
+
+        <label>Altura (cm):</label>
+        <input type="number" name="altura" required>
+      </div>
+
+      <div class="step" data-step="2">
+        <h2>2. Estilo de Vida</h2>
+
+        <label>Nivel de actividad física:</label>
+        <div class="options" id="actividad">
+          <div class="option-btn" data-value="sedentario">Sedentario</div>
+          <div class="option-btn" data-value="ligero">Ligero</div>
+          <div class="option-btn" data-value="moderado">Moderado</div>
+          <div class="option-btn" data-value="activo">Activo</div>
+          <div class="option-btn" data-value="muy_activo">Muy Activo</div>
+        </div>
+
+        <label>Objetivo:</label>
+        <div class="options" id="objetivo">
+          <div class="option-btn" data-value="lose_weight">Bajar de peso</div>
+          <div class="option-btn" data-value="improve_health">Mejorar salud</div>
+          <div class="option-btn" data-value="gain_weight">Subir de peso</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="3">
+        <h2>3. Detalles Finales</h2>
+
+        <label>Presupuesto diario (EUR):</label>
+        <input type="number" name="presupuesto" required>
+
+        <label>Alergias (separadas por comas):</label>
+        <input type="text" name="alergias">
+
+        <button type="submit" class="guardar-btn">Guardar preferencias</button>
+
+      </div>
+
+      <div class="buttons">
+        <button type="button" id="prevBtn">Atrás</button>
+        <button type="button" id="nextBtn">Siguiente</button>
+      </div>
+    </form>
+
+    <aside class="resumen">
+      <h3>Resumen</h3>
+      <p><strong>Género:</strong> <span id="resGenero">-</span></p>
+      <p><strong>Edad:</strong> <span id="resEdad">-</span></p>
+      <p><strong>Peso:</strong> <span id="resPeso">-</span> kg</p>
+      <p><strong>Altura:</strong> <span id="resAltura">-</span> cm</p>
+      <p><strong>Actividad:</strong> <span id="resActividad">-</span></p>
+      <p><strong>Objetivo:</strong> <span id="resObjetivo">-</span></p>
+      <p><strong>Presupuesto:</strong> <span id="resPresupuesto">-</span> EUR</p>
+      <p><strong>Alergias:</strong> <span id="resAlergias">-</span></p>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 NutriFlow. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const steps = document.querySelectorAll('.step');
+    let currentStep = 0;
+
+    const updateResumen = () => {
+      document.getElementById("resGenero").textContent = document.querySelector("#genero .selected")?.textContent || "-";
+      document.getElementById("resActividad").textContent = document.querySelector("#actividad .selected")?.textContent || "-";
+      document.getElementById("resObjetivo").textContent = document.querySelector("#objetivo .selected")?.textContent || "-";
+      document.getElementById("resEdad").textContent = document.querySelector('[name="edad"]').value;
+      document.getElementById("resPeso").textContent = document.querySelector('[name="peso"]').value;
+      document.getElementById("resAltura").textContent = document.querySelector('[name="altura"]').value;
+      document.getElementById("resPresupuesto").textContent = document.querySelector('[name="presupuesto"]').value;
+      document.getElementById("resAlergias").textContent = document.querySelector('[name="alergias"]').value || "-";
+    };
+
+    const showStep = (index) => {
+      steps.forEach((step, i) => step.classList.toggle('active', i === index));
+      document.getElementById('prevBtn').style.display = index === 0 ? 'none' : 'inline-block';
+      document.getElementById('nextBtn').style.display = index === steps.length - 1 ? 'none' : 'inline-block';
+    };
+
+    document.querySelectorAll('.option-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const group = btn.parentElement;
+        group.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        updateResumen();
+      });
+    });
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', updateResumen);
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+
+    document.getElementById('preferencesForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      formData.append("genero", document.querySelector("#genero .selected")?.dataset.value || "");
+      formData.append("objetivo", document.querySelector("#objetivo .selected")?.dataset.value || "");
+      formData.append("nivel_actividad", document.querySelector("#actividad .selected")?.dataset.value || "");
+
+      const csrftoken = document.querySelector('[name=csrf-token]').content;
+
+      fetch("{% url 'save_preferences' %}", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken
+        },
+        body: formData,
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        if (data.success) {
+          alert("Preferencias guardadas con éxito.");
+        } else {
+          alert("Hubo un error al guardar.");
+        }
+      });
+    });
+
+    showStep(currentStep);
+  </script>
+
+</body>
+</html>

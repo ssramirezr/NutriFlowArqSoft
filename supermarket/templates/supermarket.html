@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>NutriFlow - Productos de Supermercado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'meal/css/styles.css' %}">
+  <style>
+    :root {
+      --verde-vitalidad: #4CAF50;
+      --verde-tranquilo: #81C784;
+      --verde-profundo: #2E7D32;
+      --blanco-pureza: #FAFAFA;
+      --gris-natural: #B0BEC5;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--blanco-pureza);
+      color: var(--verde-profundo);
+      margin: 0;
+      padding: 0;
+    }
+
+    header, footer {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      padding: 1.5rem 0;
+    }
+
+    .container-flex {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .logo a {
+      color: white;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 60px;
+      vertical-align: middle;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+      opacity: 0.85;
+    }
+
+    .cta-button {
+      background-color: var(--verde-profundo);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .cta-button:hover {
+      background-color: #27692b;
+    }
+
+    .search-form {
+      margin: 2rem auto;
+      width: 90%;
+      max-width: 1100px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .search-form input, .search-form button {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--gris-natural);
+      font-size: 1rem;
+    }
+
+    .search-form input {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .search-form button {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .search-form button:hover {
+      background-color: #3e8e41;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-item {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-item img {
+      max-height: 180px;
+      width: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .product-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--verde-profundo);
+    }
+
+    .product-item p {
+      margin: 0.3rem 0;
+      font-size: 0.95rem;
+    }
+
+    .product-item .price {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--verde-vitalidad);
+    }
+
+    .pagination {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .pagination a {
+      color: var(--verde-vitalidad);
+      padding: 0.5rem 1rem;
+      margin: 0 5px;
+      text-decoration: none;
+      border: 1px solid var(--verde-vitalidad);
+      border-radius: 6px;
+    }
+
+    .pagination a:hover {
+      background-color: var(--verde-vitalidad);
+      color: white;
+    }
+
+    footer p {
+      text-align: center;
+      margin: 0;
+      font-size: 1rem;
+      padding-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container-flex">
+      <div class="logo">
+        <a href="/">
+          <img src="/media/images/nutriflowlogo.png" alt="Logo de NutriFlow" />
+          <span style="margin-left: 12px;">NutriFlow</span>
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="{% url 'preferences' %}">Preferencias</a></li>
+          <li><a href="/perfil/">Perfil</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'logoutaccount' %}" class="cta-button">Logout ({{ user.username }})</a></li>
+          {% else %}
+            <li><a href="{% url 'loginaccount' %}">Login</a></li>
+            <li><a href="{% url 'signupaccount' %}" class="cta-button">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="search-form">
+    <form method="get" action="{% url 'supermarket' %}">
+      <input type="text" name="supermarket" placeholder="Supermercado" value="{{ request.GET.supermarket }}">
+      <input type="text" name="product_name" placeholder="Nombre del producto" value="{{ request.GET.product_name }}">
+      <input type="text" name="product_brand" placeholder="Marca del producto" value="{{ request.GET.product_brand }}">
+      <input type="number" name="price" placeholder="Precio máximo" value="{{ request.GET.price }}">
+      <button type="submit">Buscar</button>
+    </form>
+  </div>
+
+  <div class="product-list">
+    {% for producto in page_obj %}
+      <div class="product-item">
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre_producto }}">
+        <h3>{{ producto.nombre_producto }}</h3>
+        <p><strong>Supermercado:</strong> {{ producto.nombre_supermercado }}</p>
+        <p><strong>Marca:</strong> {{ producto.marca_producto }}</p>
+        <p class="price"><strong>Precio:</strong> ${{ producto.precio_producto }}</p>
+        <p><strong>Calorías:</strong> {{ producto.calorias }} kcal</p>
+        <p><strong>Proteínas:</strong> {{ producto.proteinas }} g</p>
+        <p><strong>Carbohidratos:</strong> {{ producto.carbohidratos }} g</p>
+        <p><strong>Grasas:</strong> {{ producto.grasas }} g</p>
+      </div>
+    {% endfor %}
+  </div>
+
+    <div class="pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1
+              {% if request.GET.supermarket %}&supermarket={{ request.GET.supermarket }}{% endif %}
+              {% if request.GET.product_name %}&product_name={{ request.GET.product_name }}{% endif %}
+              {% if request.GET.product_brand %}&product_brand={{ request.GET.product_brand }}{% endif %}
+              {% if request.GET.price %}&price={{ request.GET.price }}{% endif %}
+            ">Primera</a>
+            <a href="?page={{ page_obj.previous_page_number }}
+              {% if request.GET.supermarket %}&supermarket={{ request.GET.supermarket }}{% endif %}
+              {% if request.GET.product_name %}&product_name={{ request.GET.product_name }}{% endif %}
+              {% if request.GET.product_brand %}&product_brand={{ request.GET.product_brand }}{% endif %}
+              {% if request.GET.price %}&price={{ request.GET.price }}{% endif %}
+            ">Anterior</a>
+          {% endif %}
+      
+          <span class="current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+          </span>
+      
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}
+              {% if request.GET.supermarket %}&supermarket={{ request.GET.supermarket }}{% endif %}
+              {% if request.GET.product_name %}&product_name={{ request.GET.product_name }}{% endif %}
+              {% if request.GET.product_brand %}&product_brand={{ request.GET.product_brand }}{% endif %}
+              {% if request.GET.price %}&price={{ request.GET.price }}{% endif %}
+            ">Siguiente</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}
+              {% if request.GET.supermarket %}&supermarket={{ request.GET.supermarket }}{% endif %}
+              {% if request.GET.product_name %}&product_name={{ request.GET.product_name }}{% endif %}
+              {% if request.GET.product_brand %}&product_brand={{ request.GET.product_brand }}{% endif %}
+              {% if request.GET.price %}&price={{ request.GET.price }}{% endif %}
+            ">Última</a>
+          {% endif %}
+        </span>
+      </div>
+      
+
+  <footer>
+    <div class="footer">
+      <p>&copy; 2025 NutriFlow. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

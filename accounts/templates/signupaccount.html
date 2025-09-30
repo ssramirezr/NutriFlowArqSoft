@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro - NutriFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde-vitalidad: #4CAF50;
+      --verde-oscuro: #2E7D32;
+      --blanco: #ffffff;
+      --gris-claro: #f0f4f8;
+      --gris: #ccc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--gris-claro);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding-top: 80px; /* Espacio para navbar fija */
+    }
+
+    header {
+      background-color: var(--verde-vitalidad);
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .container-flex {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .logo img {
+      height: 50px;
+      vertical-align: middle;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.3s ease;
+    }
+
+    nav a:hover {
+      opacity: 0.85;
+    }
+
+    .cta-button {
+      background-color: var(--verde-oscuro);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #27692b;
+    }
+
+    .signup-container {
+      display: flex;
+      max-width: 1000px;
+      background-color: var(--blanco);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      border-radius: 16px;
+      overflow: hidden;
+      width: 95%;
+    }
+
+    .signup-form {
+      flex: 1;
+      padding: 3rem 2.5rem;
+    }
+
+    .signup-form h2 {
+      color: var(--verde-oscuro);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .signup-form p {
+      margin-bottom: 1rem;
+    }
+
+    .signup-form input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--gris);
+      border-radius: 8px;
+      margin-top: 0.3rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .signup-form button {
+      width: 100%;
+      background-color: var(--verde-vitalidad);
+      color: white;
+      padding: 0.9rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .signup-form button:hover {
+      background-color: var(--verde-oscuro);
+    }
+
+    .signup-form .login-link {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .signup-form .login-link a {
+      color: var(--verde-oscuro);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .signup-info {
+      flex: 1;
+      background: linear-gradient(to bottom right, var(--verde-vitalidad), var(--verde-oscuro));
+      color: white;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .signup-info img {
+      width: 120px;
+      margin-bottom: 1rem;
+    }
+
+    .signup-info h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .signup-info ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .signup-info li {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .signup-info li::before {
+      content: "🍃";
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .signup-container {
+        flex-direction: column;
+      }
+
+      .signup-info {
+        order: -1;
+        text-align: center;
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container-flex">
+    <div class="logo">
+      <img src="/media/images/nutriflowlogo.png" alt="Logo NutriFlow" />
+      <span style="margin-left: 12px;">NutriFlow</span>
+    </div>
+    <nav>
+      <ul>
+        {% if user.is_authenticated %}
+          <li><a href="/supermarket">Supermercado</a></li>
+          <li><a href="/preferences">Preferencias</a></li>
+          <li><a href="/perfil/">Perfil</a></li>
+          <li><a href="{% url 'generate_diet' %}">Generar Dieta</a></li>
+          <li><a href="{% url 'logoutaccount' %}" class="cta-button">Cerrar sesión ({{ user.username }})</a></li>
+        {% else %}
+          <li><a href="{% url 'loginaccount' %}">Iniciar sesión</a></li>
+          <li><a href="{% url 'signupaccount' %}" class="cta-button">Comenzar</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="signup-container">
+  <div class="signup-info">
+    <img src="/media/images/nutriflowlogo.png" alt="NutriFlow Logo">
+    <h3>¡Bienvenido a NutriFlow!</h3>
+    <ul>
+      <li>Planes alimenticios personalizados</li>
+      <li>Supervisión diaria de tus nutrientes</li>
+      <li>Compra inteligente basada en tu presupuesto</li>
+    </ul>
+  </div>
+
+  <div class="signup-form">
+    <h2>Crea tu cuenta</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <div class="login-link">
+      ¿Ya tienes cuenta? <a href="{% url 'loginaccount' %}">Inicia sesión</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

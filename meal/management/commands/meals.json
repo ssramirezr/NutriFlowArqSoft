@@ -1,0 +1,229 @@
+{
+    "alimentos": [
+        {
+            "name": "Huevo",
+            "description": "Un huevo entero, rico en proteínas y nutrientes esenciales.",
+            "calories": 70,
+            "protein": 6,
+            "carbs": 1,
+            "fat": 5,
+            "image": null
+        },
+        {
+            "name": "Leche",
+            "description": "Un vaso de leche entera, rica en calcio y proteínas.",
+            "calories": 150,
+            "protein": 8,
+            "carbs": 12,
+            "fat": 8,
+            "image": null
+        },
+        {
+            "name": "Pechuga de pollo",
+            "description": "Pechuga de pollo sin piel ni hueso, alta en proteínas magras.",
+            "calories": 165,
+            "protein": 31,
+            "carbs": 0,
+            "fat": 3.5,
+            "image": null
+        },
+        {
+            "name": "Salmón",
+            "description": "Un filete de salmón, rico en ácidos grasos omega-3.",
+            "calories": 206,
+            "protein": 22,
+            "carbs": 0,
+            "fat": 13,
+            "image": null
+        },
+        {
+            "name": "Arroz",
+            "description": "Una taza de arroz blanco cocido, fuente de carbohidratos.",
+            "calories": 200,
+            "protein": 4,
+            "carbs": 45,
+            "fat": 0.5,
+            "image": null
+        },
+        {
+            "name": "Avena",
+            "description": "Una taza de avena cocida, rica en fibra y carbohidratos de absorción lenta.",
+            "calories": 150,
+            "protein": 5,
+            "carbs": 27,
+            "fat": 3,
+            "image": null
+        },
+        {
+            "name": "Manzana",
+            "description": "Una manzana mediana, rica en fibra y vitamina C.",
+            "calories": 95,
+            "protein": 0.5,
+            "carbs": 25,
+            "fat": 0.3,
+            "image": null
+        },
+        {
+            "name": "Plátano",
+            "description": "Un plátano mediano, fuente rápida de energía y potasio.",
+            "calories": 105,
+            "protein": 1.3,
+            "carbs": 27,
+            "fat": 0.3,
+            "image": null
+        },
+        {
+            "name": "Brócoli",
+            "description": "Una taza de brócoli picado, lleno de fibra y vitaminas.",
+            "calories": 55,
+            "protein": 4,
+            "carbs": 11,
+            "fat": 0.5,
+            "image": null
+        },
+        {
+            "name": "Espinaca",
+            "description": "Una taza de espinaca cruda, rica en hierro y antioxidantes.",
+            "calories": 7,
+            "protein": 0.9,
+            "carbs": 1.1,
+            "fat": 0.1,
+            "image": null
+        },
+        {
+            "name": "Queso",
+            "description": "Una rebanada de queso cheddar, rica en calcio y grasas.",
+            "calories": 113,
+            "protein": 7,
+            "carbs": 1,
+            "fat": 9,
+            "image": null
+        },
+        {
+            "name": "Almendras",
+            "description": "Un puñado de almendras, excelente fuente de grasas saludables y proteínas.",
+            "calories": 160,
+            "protein": 6,
+            "carbs": 6,
+            "fat": 14,
+            "image": null
+        },
+        {
+            "name": "Mantequilla de maní",
+            "description": "Una cucharada de mantequilla de maní, rica en proteínas y grasas.",
+            "calories": 90,
+            "protein": 4,
+            "carbs": 3,
+            "fat": 8,
+            "image": null
+        },
+        {
+            "name": "Yogur griego",
+            "description": "Un vaso de yogur griego, alto en proteínas y probióticos.",
+            "calories": 100,
+            "protein": 17,
+            "carbs": 7,
+            "fat": 0,
+            "image": null
+        },
+        {
+            "name": "Quinoa",
+            "description": "Una taza de quinoa cocida, una fuente completa de proteínas.",
+            "calories": 222,
+            "protein": 8,
+            "carbs": 39,
+            "fat": 3.5,
+            "image": null
+        },
+        {
+            "name": "Lentejas",
+            "description": "Una taza de lentejas cocidas, rica en fibra y proteínas.",
+            "calories": 230,
+            "protein": 18,
+            "carbs": 40,
+            "fat": 0.8,
+            "image": null
+        },
+        {
+            "name": "Atún",
+            "description": "Una lata de atún en agua, muy alta en proteínas magras.",
+            "calories": 100,
+            "protein": 22,
+            "carbs": 0,
+            "fat": 1,
+            "image": null
+        },
+        {
+            "name": "Batata",
+            "description": "Una batata mediana, llena de fibra y vitaminas.",
+            "calories": 112,
+            "protein": 2,
+            "carbs": 26,
+            "fat": 0.1,
+            "image": null
+        },
+        {
+            "name": "Aguacate",
+            "description": "Un aguacate entero, rico en grasas saludables y fibra.",
+            "calories": 240,
+            "protein": 3,
+            "carbs": 12,
+            "fat": 22,
+            "image": null
+        },
+        {
+            "name": "Zanahorias",
+            "description": "Una taza de zanahorias picadas, alta en betacaroteno.",
+            "calories": 52,
+            "protein": 1.2,
+            "carbs": 12,
+            "fat": 0.3,
+            "image": null
+        },
+        {
+            "name": "Requesón",
+            "description": "Una taza de requesón bajo en grasa, alto en proteínas de caseína.",
+            "calories": 206,
+            "protein": 28,
+            "carbs": 6,
+            "fat": 8,
+            "image": null
+        },
+        {
+            "name": "Nueces",
+            "description": "Un puñado de nueces, ricas en ácidos grasos omega-3.",
+            "calories": 185,
+            "protein": 4,
+            "carbs": 4,
+            "fat": 18,
+            "image": null
+        },
+        {
+            "name": "Naranjas",
+            "description": "Una naranja mediana, rica en vitamina C y fibra.",
+            "calories": 62,
+            "protein": 1.2,
+            "carbs": 15,
+            "fat": 0.2,
+            "image": null
+        },
+        {
+            "name": "Chuleta de cerdo",
+            "description": "Una chuleta de cerdo a la parrilla, alta en proteínas y hierro.",
+            "calories": 250,
+            "protein": 28,
+            "carbs": 0,
+            "fat": 14,
+            "image": null
+        },
+        {
+            "name": "Garbanzos",
+            "description": "Una taza de garbanzos cocidos, excelente fuente de proteínas vegetales.",
+            "calories": 269,
+            "protein": 15,
+            "carbs": 45,
+            "fat": 4,
+            "image": null
+        }
+    ]
+}

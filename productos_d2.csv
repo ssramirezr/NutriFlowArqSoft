@@ -1,0 +1,93 @@
+nombre_supermercado,nombre_producto,marca_producto,precio_producto,calorias,proteinas,carbohidratos,grasas
+D2,pechuga de pollo 250g,Marca A,7.77,156,29,1,10
+D2,pechuga de pollo 250g,Marca B,4.75,121,26,3,3
+D2,muslo de pollo 250g,Marca A,10.75,126,29,5,2
+D2,muslo de pollo 250g,Marca B,6.64,142,22,3,4
+D2,carne de res magra 250g,Marca A,3.3,134,25,4,8
+D2,carne de res magra 250g,Marca B,5.32,150,27,0,6
+D2,huevo unidad,Marca A,8.73,47,0,8,0
+D2,huevo unidad,Marca B,7.4,38,1,5,0
+D2,salmon 250g,Marca A,8.0,25,2,6,1
+D2,salmon 250g,Marca B,5.5,56,0,14,0
+D2,tilapia 250g,Marca A,3.72,56,1,8,0
+D2,tilapia 250g,Marca B,8.62,44,2,5,0
+D2,atun en agua 250g,Marca A,3.69,41,1,14,0
+D2,atun en agua 250g,Marca B,4.08,60,0,7,1
+D2,queso bajo en grasa 250g,Marca A,6.42,58,0,11,1
+D2,queso bajo en grasa 250g,Marca B,6.09,56,1,13,1
+D2,yogur natural sin azucar 1L,Marca A,7.39,62,0,11,0
+D2,yogur natural sin azucar 1L,Marca B,6.88,26,0,12,0
+D2,espinaca 500g,Marca A,15.2,58,1,12,1
+D2,espinaca 500g,Marca B,7.19,56,2,13,1
+D2,brocoli 500g,Marca A,13.65,27,1,10,0
+D2,brocoli 500g,Marca B,4.64,49,0,12,0
+D2,zanahoria 500g,Marca A,2.78,57,0,5,0
+D2,zanahoria 500g,Marca B,6.73,22,0,7,0
+D2,tomate 500g,Marca A,12.9,23,2,9,0
+D2,tomate 500g,Marca B,12.65,61,2,10,1
+D2,cebolla 500g,Marca A,5.4,46,1,13,0
+D2,cebolla 500g,Marca B,6.34,68,0,6,1
+D2,ajo 500g,Marca A,4.55,41,0,7,0
+D2,ajo 500g,Marca B,5.47,36,2,9,0
+D2,lechuga 500g,Marca A,3.3,59,2,7,1
+D2,lechuga 500g,Marca B,4.34,58,2,12,1
+D2,pepino 500g,Marca A,10.87,51,1,15,1
+D2,pepino 500g,Marca B,4.24,54,0,12,0
+D2,pimenton 500g,Marca A,8.6,62,0,8,1
+D2,pimenton 500g,Marca B,8.65,20,2,15,0
+D2,manzana 500g,Marca A,4.22,37,0,13,0
+D2,manzana 500g,Marca B,12.65,22,0,15,0
+D2,banano 500g,Marca A,9.21,40,1,12,1
+D2,banano 500g,Marca B,4.05,40,2,6,0
+D2,papaya 500g,Marca A,7.81,43,1,14,0
+D2,papaya 500g,Marca B,2.19,30,1,10,0
+D2,pera 500g,Marca A,11.43,63,2,9,0
+D2,pera 500g,Marca B,8.94,27,1,12,1
+D2,pina 250g,Marca A,8.42,58,1,13,1
+D2,pina 250g,Marca B,5.15,64,1,7,1
+D2,mango 500g,Marca A,4.39,35,1,15,0
+D2,mango 500g,Marca B,6.88,67,2,15,0
+D2,aguacate 500g,Marca A,5.76,46,2,11,0
+D2,aguacate 500g,Marca B,5.86,34,1,14,1
+D2,avena en hojuelas 250g,Marca A,4.54,109,2,20,1
+D2,avena en hojuelas 250g,Marca B,4.95,111,3,20,1
+D2,arroz integral 250g,Marca A,7.62,146,4,30,2
+D2,arroz integral 250g,Marca B,7.96,156,4,32,1
+D2,lentejas 250g,Marca A,7.67,123,10,27,3
+D2,lentejas 250g,Marca B,8.23,130,7,24,2
+D2,garbanzos 250g,Marca A,8.29,102,8,24,3
+D2,garbanzos 250g,Marca B,7.14,101,6,30,1
+D2,frijoles 250g,Marca A,5.68,137,8,23,2
+D2,frijoles 250g,Marca B,4.86,129,7,26,2
+D2,quinoa 250g,Marca A,10.82,154,3,28,2
+D2,quinoa 250g,Marca B,6.28,135,5,26,3
+D2,maiz 250g,Marca A,5.85,147,5,31,3
+D2,maiz 250g,Marca B,2.41,148,6,31,2
+D2,pan integral 1 tajada,Marca A,7.16,125,2,20,1
+D2,pan integral 1 tajada,Marca B,8.57,110,3,24,4
+D2,nueces 250g,Marca A,4.01,88,3,2,14
+D2,nueces 250g,Marca B,7.28,80,5,5,13
+D2,almendras 250g,Marca A,4.72,102,3,2,9
+D2,almendras 250g,Marca B,10.18,83,4,4,11
+D2,semillas de chia 250g,Marca A,8.85,82,4,5,12
+D2,semillas de chia 250g,Marca B,9.71,93,2,5,11
+D2,semillas de linaza 250g,Marca A,4.8,114,5,4,10
+D2,semillas de linaza 250g,Marca B,8.84,114,5,3,7
+D2,aceite de oliva extra virgen 250ml,Marca A,8.28,89,4,3,8
+D2,aceite de oliva extra virgen 250ml,Marca B,4.32,102,5,3,7
+D2,leche descremada 1L,Marca A,10.88,65,1,11,0
+D2,leche descremada 1L,Marca B,3.76,65,1,15,0
+D2,bebida vegetal sin azucar 1L,Marca A,7.39,42,0,11,1
+D2,bebida vegetal sin azucar 1L,Marca B,4.17,51,0,14,1
+D2,harina de avena 250g,Marca A,10.52,101,2,28,1
+D2,harina de avena 250g,Marca B,7.3,140,5,24,1
+D2,batata 250g,Marca A,10.49,113,3,25,1
+D2,batata 250g,Marca B,4.09,124,2,28,2
+D2,yuca 250g,Marca A,7.73,114,3,21,1
+D2,yuca 250g,Marca B,9.81,137,4,24,1
+D2,platano maduro 250g,Marca A,11.95,143,4,28,2
+D2,platano maduro 250g,Marca B,4.29,141,5,24,2
+D2,panela 125g,Marca A,4.7,60,0,16,0
+D2,panela 125g,Marca B,9.41,60,0,16,0
+D2,cacao en polvo sin azucar 50g,Marca A,9.28,30,2,3,2
+D2,cacao en polvo sin azucar 50g,Marca B,11.56,30,2,3,2

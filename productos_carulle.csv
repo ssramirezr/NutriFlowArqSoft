@@ -1,0 +1,93 @@
+nombre_supermercado,nombre_producto,marca_producto,precio_producto,calorias,proteinas,carbohidratos,grasas
+Carulle,pechuga de pollo 250g,Marca A,7.72,156,29,1,10
+Carulle,pechuga de pollo 250g,Marca B,5.19,121,26,3,3
+Carulle,muslo de pollo 250g,Marca A,11.61,126,29,5,2
+Carulle,muslo de pollo 250g,Marca B,6.31,142,22,3,4
+Carulle,carne de res magra 250g,Marca A,3.06,134,25,4,8
+Carulle,carne de res magra 250g,Marca B,5.38,150,27,0,6
+Carulle,huevo unidad,Marca A,8.33,47,0,8,0
+Carulle,huevo unidad,Marca B,7.15,38,1,5,0
+Carulle,salmon 250g,Marca A,7.82,25,2,6,1
+Carulle,salmon 250g,Marca B,5.42,56,0,14,0
+Carulle,tilapia 250g,Marca A,3.7,56,1,8,0
+Carulle,tilapia 250g,Marca B,8.27,44,2,5,0
+Carulle,atun en agua 250g,Marca A,3.92,41,1,14,0
+Carulle,atun en agua 250g,Marca B,4.07,60,0,7,1
+Carulle,queso bajo en grasa 250g,Marca A,6.31,58,0,11,1
+Carulle,queso bajo en grasa 250g,Marca B,6.36,56,1,13,1
+Carulle,yogur natural sin azucar 1L,Marca A,7.29,62,0,11,0
+Carulle,yogur natural sin azucar 1L,Marca B,6.99,26,0,12,0
+Carulle,espinaca 500g,Marca A,14.51,58,1,12,1
+Carulle,espinaca 500g,Marca B,6.59,56,2,13,1
+Carulle,brocoli 500g,Marca A,14.71,27,1,10,0
+Carulle,brocoli 500g,Marca B,4.7,49,0,12,0
+Carulle,zanahoria 500g,Marca A,2.58,57,0,5,0
+Carulle,zanahoria 500g,Marca B,6.71,22,0,7,0
+Carulle,tomate 500g,Marca A,13.96,23,2,9,0
+Carulle,tomate 500g,Marca B,12.46,61,2,10,1
+Carulle,cebolla 500g,Marca A,5.66,46,1,13,0
+Carulle,cebolla 500g,Marca B,5.9,68,0,6,1
+Carulle,ajo 500g,Marca A,4.51,41,0,7,0
+Carulle,ajo 500g,Marca B,5.79,36,2,9,0
+Carulle,lechuga 500g,Marca A,3.45,59,2,7,1
+Carulle,lechuga 500g,Marca B,4.14,58,2,12,1
+Carulle,pepino 500g,Marca A,11.67,51,1,15,1
+Carulle,pepino 500g,Marca B,4.65,54,0,12,0
+Carulle,pimenton 500g,Marca A,7.95,62,0,8,1
+Carulle,pimenton 500g,Marca B,9.46,20,2,15,0
+Carulle,manzana 500g,Marca A,3.85,37,0,13,0
+Carulle,manzana 500g,Marca B,13.57,22,0,15,0
+Carulle,banano 500g,Marca A,10.08,40,1,12,1
+Carulle,banano 500g,Marca B,4.13,40,2,6,0
+Carulle,papaya 500g,Marca A,7.18,43,1,14,0
+Carulle,papaya 500g,Marca B,2.0,30,1,10,0
+Carulle,pera 500g,Marca A,11.12,63,2,9,0
+Carulle,pera 500g,Marca B,8.8,27,1,12,1
+Carulle,pina 250g,Marca A,9.2,58,1,13,1
+Carulle,pina 250g,Marca B,4.9,64,1,7,1
+Carulle,mango 500g,Marca A,4.52,35,1,15,0
+Carulle,mango 500g,Marca B,6.66,67,2,15,0
+Carulle,aguacate 500g,Marca A,6.21,46,2,11,0
+Carulle,aguacate 500g,Marca B,6.34,34,1,14,1
+Carulle,avena en hojuelas 250g,Marca A,4.81,109,2,20,1
+Carulle,avena en hojuelas 250g,Marca B,5.36,111,3,20,1
+Carulle,arroz integral 250g,Marca A,7.07,146,4,30,2
+Carulle,arroz integral 250g,Marca B,7.89,156,4,32,1
+Carulle,lentejas 250g,Marca A,7.79,123,10,27,3
+Carulle,lentejas 250g,Marca B,7.99,130,7,24,2
+Carulle,garbanzos 250g,Marca A,8.72,102,8,24,3
+Carulle,garbanzos 250g,Marca B,7.24,101,6,30,1
+Carulle,frijoles 250g,Marca A,5.67,137,8,23,2
+Carulle,frijoles 250g,Marca B,4.7,129,7,26,2
+Carulle,quinoa 250g,Marca A,10.59,154,3,28,2
+Carulle,quinoa 250g,Marca B,6.42,135,5,26,3
+Carulle,maiz 250g,Marca A,6.41,147,5,31,3
+Carulle,maiz 250g,Marca B,2.26,148,6,31,2
+Carulle,pan integral 1 tajada,Marca A,7.49,125,2,20,1
+Carulle,pan integral 1 tajada,Marca B,7.81,110,3,24,4
+Carulle,nueces 250g,Marca A,4.36,88,3,2,14
+Carulle,nueces 250g,Marca B,7.55,80,5,5,13
+Carulle,almendras 250g,Marca A,4.51,102,3,2,9
+Carulle,almendras 250g,Marca B,10.78,83,4,4,11
+Carulle,semillas de chia 250g,Marca A,8.67,82,4,5,12
+Carulle,semillas de chia 250g,Marca B,9.68,93,2,5,11
+Carulle,semillas de linaza 250g,Marca A,5.22,114,5,4,10
+Carulle,semillas de linaza 250g,Marca B,8.61,114,5,3,7
+Carulle,aceite de oliva extra virgen 250ml,Marca A,7.99,89,4,3,8
+Carulle,aceite de oliva extra virgen 250ml,Marca B,3.89,102,5,3,7
+Carulle,leche descremada 1L,Marca A,11.32,65,1,11,0
+Carulle,leche descremada 1L,Marca B,4.1,65,1,15,0
+Carulle,bebida vegetal sin azucar 1L,Marca A,7.49,42,0,11,1
+Carulle,bebida vegetal sin azucar 1L,Marca B,4.33,51,0,14,1
+Carulle,harina de avena 250g,Marca A,9.84,101,2,28,1
+Carulle,harina de avena 250g,Marca B,7.21,140,5,24,1
+Carulle,batata 250g,Marca A,11.48,113,3,25,1
+Carulle,batata 250g,Marca B,3.94,124,2,28,2
+Carulle,yuca 250g,Marca A,7.64,114,3,21,1
+Carulle,yuca 250g,Marca B,9.87,137,4,24,1
+Carulle,platano maduro 250g,Marca A,11.34,143,4,28,2
+Carulle,platano maduro 250g,Marca B,4.34,141,5,24,2
+Carulle,panela 125g,Marca A,4.23,60,0,16,0
+Carulle,panela 125g,Marca B,8.81,60,0,16,0
+Carulle,cacao en polvo sin azucar 50g,Marca A,10.19,30,2,3,2
+Carulle,cacao en polvo sin azucar 50g,Marca B,11.85,30,2,3,2
