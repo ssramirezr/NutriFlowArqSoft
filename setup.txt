@@ -1,0 +1,18 @@
+Setup :)
+
+Debe tener python 3.12.5 o mayor instado. Y ademas debe tener pip instalado
+Debe instalar las dependencias.
+ pip install -r requirements.txt
+
+Antes de iniciar el servidor, ejecutar:
+    python manage.py makemigrations
+    python manage.py migrate
+
+Crear un superusuario (opcional)
+Si desea acceder al panel de administración:
+    python manage.py createsuperuser
+
+Iniciar el servidor con:
+    python manage.py runserver
+El proyecto estará disponible en:
+    http://127.0.0.1:8000/
