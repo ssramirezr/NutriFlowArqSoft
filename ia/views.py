@@ -1,220 +1,47 @@
-from django.shortcuts import render
-from preferences.models import Preferences
-from supermarket.models import Supermarket
-from accounts.models import User
-from meal.models import MealPlan
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.urls import reverse
-import openai
-import os
-from dotenv import load_dotenv
-import json
-import re
-
-# Cargar clave API
-load_dotenv('C:/Users/ASUS/Downloads/NutriFlow-main/NutriFlow-main/openAI.env')
-openai.api_key = os.getenv("openai_apikey")
-if not openai.api_key:
-    raise ValueError("No se cargó la clave API de OpenAI correctamente.")
+from .services import MealPlanFacade
 
 def generate_meal_plan(request):
-
+    """
+    Gestiona la solicitud para generar un nuevo plan de comidas.
+    Utiliza MealPlanFacade para orquestar la lógica de negocio.
+    """
     if request.method == 'POST':
+        # Limpiar datos de sesión anteriores
         if 'meal_plan_data' in request.session:
             del request.session['meal_plan_data']
         if 'alerta_presupuesto' in request.session:
             del request.session['alerta_presupuesto']
+
+        # Instanciar y usar la fachada para encapsular la complejidad
+        facade = MealPlanFacade(request.user)
+        result = facade.generate_plan()
+
+        # Comprobar el resultado de la fachada
+        if 'error' in result:
+            return render(request, 'meal_plan_result.html', {'error': result['error']})
         
+        # Si todo fue exitoso, guardar los datos en la sesión
+        request.session['meal_plan_data'] = result['meal_plan_data']
+        request.session['alerta_presupuesto'] = result['alerta_presupuesto']
 
-    user = request.user
-    prefs = Preferences.objects.filter(user=user).first()
-
-    if not prefs:
-        return render(request, 'meal_plan_result.html', {
-            'error': 'No has configurado tus preferencias nutricionales.'
-        })
-
-    if request.method == 'POST':
-        productos_disponibles = Supermarket.objects.all()
-
-        productos_lista = ""
-        for prod in productos_disponibles:
-            productos_lista += (
-                f"- {prod.nombre_producto} ({prod.marca_producto}): "
-                f"{prod.calorias} kcal, {prod.proteinas}g proteínas, "
-                f"{prod.carbohidratos}g carbohidratos, {prod.grasas}g grasas, "
-                f"Precio: {prod.precio_producto}€, Supermercado: {prod.nombre_supermercado}\n"
-            )
-
-        # Separar el bloque JSON del f-string para evitar errores de sintaxis
-        prompt_intro = f"""
-Eres un nutricionista experto en planes de alimentación económica y saludable.
-
-Crea un plan de comidas para un día (desayuno, snack 1, almuerzo, snack 2, cena) usando únicamente los productos de la siguiente lista:
-
-{productos_lista}
-
-Cada comida debe:
-- Elegir productos con mejor relación costo/nutrición
-- No superar el presupuesto disponible: {prefs.presupuesto} €
-- Indicar cantidad, preparación y macronutrientes
-
-⚠️ El total diario del plan debe cumplir estas metas nutricionales con un margen máximo de ±5%
-
-📌 En la lista de compras, para cada producto incluye:
-- `cantidad_usada`: la cantidad utilizada del producto (ej. 100g)
-- `precio_porcion`: precio correspondiente solo a la cantidad usada
-- `precio_producto_completo`: precio total del paquete o unidad vendida (según aparece en el supermercado)
-
-El formato de salida debe ser estrictamente JSON con esta estructura exacta (sin explicaciones):
-"""
-
-        prompt_json = """
-{
-  "meals": [
-    {
-      "name": "Desayuno",
-      "items": [
-        {
-          "producto": "...",
-          "marca": "...",
-          "cantidad": "..."
-        }
-      ],
-      "preparacion": "...",
-      "macronutrientes": {
-        "calorias": ...,
-        "proteinas": ...,
-        "carbohidratos": ...,
-        "grasas": ...
-      }
-    }
-  ],
-  "totals": {
-    "calorias": ...,
-    "proteinas": ...,
-    "carbohidratos": ...,
-    "grasas": ...
-  },
-  "shopping_list": [
-    {
-      "producto": "...",
-      "marca": "...",
-      "supermercado": "...",
-      "cantidad": "...",
-      "precio_porcion": ...
-      "precio_producto_completo": ...
-
-    }
-  ],
-  "presupuesto": {
-    "total_usuario":  """ + str(prefs.presupuesto) + """,
-    "total_usado": ...,
-    "restante": ...
-  }
-}
-
-📌 Importante:
-- Sé estricto con los valores nutricionales. Ajusta las cantidades si es necesario.
-- NO inventes productos. Usa solo los listados proporcionados
-- NO excedas el presupuesto
-- Redondea precios a 2 decimales
-"""
-
-        full_prompt = prompt_intro + prompt_json
-
-        try:
-            response = openai.ChatCompletion.create(
-                model="gpt-4o",
-                messages=[
-                    {"role": "system", "content": "Eres un nutricionista que crea planes alimenticios solo con productos reales y económicos."},
-                    {"role": "user", "content": full_prompt}
-                ],
-                temperature=0.5,
-                max_tokens=2000
-            )
-
-            json_text = response['choices'][0]['message']['content'].strip()
-
-            if not json_text:
-                return render(request, 'meal_plan_result.html', {'error': 'La respuesta de OpenAI está vacía.'})
-
-            match = re.search(r'({.*})', json_text, re.DOTALL)
-            if match:
-                json_text = match.group(1)
-            else:
-                return render(request, 'meal_plan_result.html', {
-                    'error': f"La respuesta no contiene JSON reconocible:\n\n{json_text}"
-                })
-
-            json_text = json_text.replace('\\"', '"').replace("\\n", "").strip()
-
-            try:
-                meal_plan_data = json.loads(json_text)
-            except json.JSONDecodeError as e:
-                return render(request, 'meal_plan_result.html', {
-                    'error': f"Error al decodificar JSON: {e}\n\nRespuesta:\n{json_text}"
-                })
-
-            if not meal_plan_data.get("meals") or not meal_plan_data.get("shopping_list"):
-                return render(request, 'meal_plan_result.html', {
-                    'error': "El plan generado no contiene datos completos. Intenta nuevamente."
-                })
-            
-            if not meal_plan_data.get("meals") or not meal_plan_data.get("shopping_list"):
-                return render(request, 'meal_plan_result.html', {
-                    'error': "El plan generado no contiene datos completos. Intenta nuevamente."
-                })
-
-            # GUARDAR EN BASE DE DATOS
-
-            MealPlan.objects.create(user=user, plan_json=meal_plan_data)
-
-
-
-            # Cálculo visual del presupuesto
-            total_usado = meal_plan_data["presupuesto"]["total_usado"]
-            ...
-
-            # Cálculo visual del presupuesto
-            total_usado = meal_plan_data["presupuesto"]["total_usado"]
-            total_usuario = meal_plan_data["presupuesto"]["total_usuario"]
-            porcentaje_usado = (total_usado / total_usuario) * 100
-
-            if porcentaje_usado >= 80:
-                color = "danger"
-                mensaje = f"🚨 ¡Cuidado! Estás usando el {porcentaje_usado:.2f}% de tu presupuesto diario."
-            elif porcentaje_usado >= 50:
-                color = "warning"
-                mensaje = f"⚠️ Atención: llevas usado el {porcentaje_usado:.2f}% de tu presupuesto."
-            else:
-                color = "success"
-                mensaje = f"✅ Presupuesto bajo control: solo has usado el {porcentaje_usado:.2f}%."
-
-            alerta_presupuesto = {
-                "porcentaje": round(porcentaje_usado, 2),
-                "color": color,
-                "mensaje": mensaje
-            }
-
-        except Exception as e:
-            return render(request, 'meal_plan_result.html', {'error': str(e)})
-
-        request.session['meal_plan_data'] = meal_plan_data
-        request.session['alerta_presupuesto'] = alerta_presupuesto
-
-        # Redirige a una nueva URL para mostrar los resultados
+        # Redirigir a la vista que muestra los resultados
         return redirect(reverse('mostrar_plan_generado'))
 
+    # Para peticiones GET, simplemente renderiza la página inicial
     return render(request, 'meal_plan_result.html')
 
 def mostrar_plan_generado(request):
+    """
+    Muestra el plan de comidas que fue previamente generado y guardado en la sesión.
+    """
     meal_plan_data = request.session.get('meal_plan_data')
     alerta_presupuesto = request.session.get('alerta_presupuesto')
 
     if not meal_plan_data:
         return render(request, 'meal_plan_result.html', {
-            'error': 'No hay un plan para mostrar. Por favor genera uno primero.'
+            'error': 'No hay un plan para mostrar. Por favor, genera uno primero.'
         })
 
     return render(request, 'meal_plan_result.html', {

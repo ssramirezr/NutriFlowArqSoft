@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import csv
 import os
+import json
 
 class ProductImporter(ABC):
     """
@@ -22,19 +23,43 @@ class CSVProductImporter(ProductImporter):
         self.file_path = file_path
 
     def import_products(self):
-        """
-        Importa productos desde el archivo CSV especificado en el constructor.
-        """
         ruta_absoluta = os.path.join(os.getcwd(), self.file_path)
         try:
             with open(ruta_absoluta, mode='r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 return list(reader)
         except FileNotFoundError:
-            # Podríamos manejar el error aquí o dejar que la capa superior lo haga.
-            # Por ahora, lo relanzamos para que el comando lo maneje.
             raise
         except Exception as e:
-            # Manejar otros posibles errores durante la lectura del archivo
-            print(f"Ocurrió un error al leer el archivo: {e}")
+            print(f"Ocurrió un error al leer el archivo CSV: {e}")
             return []
+
+class JSONProductImporter(ProductImporter):
+    """
+    Implementación concreta para importar productos desde un archivo JSON.
+    """
+    def __init__(self, file_path):
+        self.file_path = file_path
+
+    def import_products(self):
+        # Esta es una implementación de ejemplo. Se necesitaría un archivo JSON con la estructura adecuada.
+        self.stdout.write(self.style.NOTICE("Importador JSON aún no implementado al 100%."))
+        return []
+
+class ImporterFactory:
+    """
+    Fábrica que crea el tipo de importador de productos adecuado según el archivo.
+    """
+    @staticmethod
+    def get_importer(file_path):
+        """
+        Inspecciona la extensión del archivo y devuelve una instancia del importador correcto.
+        """
+        extension = os.path.splitext(file_path)[1].lower()
+        if extension == '.csv':
+            return CSVProductImporter(file_path)
+        elif extension == '.json':
+            # Aunque no tengamos archivos JSON, la fábrica ya está lista para soportarlos.
+            return JSONProductImporter(file_path)
+        else:
+            raise ValueError(f"El formato de archivo '{extension}' no es soportado.")

@@ -1,22 +1,23 @@
-import csv
 from django.core.management.base import BaseCommand
 from supermarket.models import Supermarket
-from supermarket.services import CSVProductImporter
+from supermarket.services import ImporterFactory
 
 class Command(BaseCommand):
-    help = 'Importa productos desde un archivo CSV utilizando un importador desacoplado.'
+    help = 'Importa productos desde un archivo (CSV, JSON, etc.) usando una fábrica de importadores.'
 
     def add_arguments(self, parser):
-        parser.add_argument('csv_file', type=str, help='La ruta al archivo CSV para importar.')
+        parser.add_argument('file_path', type=str, help='La ruta al archivo de datos para importar.')
 
     def handle(self, *args, **kwargs):
-        archivo_csv = kwargs['csv_file']
-        importer = CSVProductImporter(file_path=archivo_csv)
-
+        file_path = kwargs['file_path']
+        
         try:
+            # Usamos la fábrica para obtener el importador adecuado.
+            importer = ImporterFactory.get_importer(file_path)
             products_data = importer.import_products()
+            
             if not products_data:
-                self.stderr.write(self.style.WARNING("No se encontraron datos en el archivo o el archivo está vacío."))
+                self.stderr.write(self.style.WARNING("No se encontraron datos en el archivo o el importador no devolvió nada."))
                 return
 
             for row in products_data:
@@ -33,14 +34,17 @@ class Command(BaseCommand):
                         imagen='images/default_image.jpg'
                     )
                 except KeyError as e:
-                    self.stderr.write(self.style.ERROR(f"Falta la columna requerida en el CSV: {e}"))
+                    self.stderr.write(self.style.ERROR(f"Falta la columna requerida en el archivo: {e}"))
                 except ValueError as e:
                     self.stderr.write(self.style.ERROR(f"Error de formato en la fila: {row} -> {e}"))
 
-            self.stdout.write(self.style.SUCCESS(f'✅ Importación desde {archivo_csv} completada correctamente.'))
+            self.stdout.write(self.style.SUCCESS(f'✅ Importación desde {file_path} completada correctamente.'))
 
         except FileNotFoundError:
-            self.stderr.write(self.style.ERROR(f'❌ Archivo no encontrado: {archivo_csv}'))
+            self.stderr.write(self.style.ERROR(f'❌ Archivo no encontrado: {file_path}'))
+        except ValueError as e:
+            # Captura el error de la fábrica si el formato no es soportado.
+            self.stderr.write(self.style.ERROR(str(e)))
         except Exception as e:
             self.stderr.write(self.style.ERROR(f'Ocurrió un error inesperado: {e}'))
 
